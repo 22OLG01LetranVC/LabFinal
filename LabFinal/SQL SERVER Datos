@@ -1,0 +1,23 @@
+CREATE DATABASE pinturas_recubrimientos_db;
+GO
+USE pinturas_recubrimientos_db;
+GO
+
+CREATE TABLE productos (
+    id_producto INT IDENTITY(1,1) PRIMARY KEY,
+    nombre_producto NVARCHAR(150) NOT NULL,
+    tipo_producto NVARCHAR(100),
+    precio DECIMAL(10,2) NOT NULL,
+    stock INT NOT NULL DEFAULT 0,
+    fecha_registro DATE DEFAULT GETDATE()
+);
+
+drop table  productos;
+
+INSERT INTO productos (nombre_producto, tipo_producto, precio, stock) VALUES
+('Pintura Acrílica Premium', 'Pintura de pared', 250.75, 150),
+('Esmalte Sintético', 'Esmalte para metal y madera', 180.00, 75),
+('Impermeabilizante Elástico', 'Recubrimiento para techos', 450.50, 40),
+('Barniz Marino Protector', 'Barniz para exteriores', 300.00, 60);
+
+SELECT * FROM productos;
