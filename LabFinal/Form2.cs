@@ -14,7 +14,7 @@ namespace LabFinal
 {
     public partial class Form2 : Form
     {
-        // Change the connection string to use the correct server instance and database.
+       
         SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-5V7J3DL\SQLEXPRESS;Initial Catalog=pinturas_recubrimientos_db;Integrated Security=true");
 
         public Form2()
@@ -24,7 +24,7 @@ namespace LabFinal
 
         private void obtenerregistros()
         {
-            // Change the connection string to use the correct server instance and database.
+           
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM productos", "server=DESKTOP-5V7J3DL\\SQLEXPRESS; database = pinturas_recubrimientos_db; Integrated Security=true");
             DataSet ds = new DataSet();
             da.Fill(ds, "nombre");
@@ -47,7 +47,7 @@ namespace LabFinal
                 else
                 {
                     conn.Open();
-                    // Corrected INSERT statement to match the database schema.
+                   
                     SqlDataAdapter sda = new SqlDataAdapter(
                         "INSERT INTO productos(nombre_producto, tipo_producto, precio, stock) VALUES ('"
                         + textBox2.Text + "','" + textBox3.Text + "'," + textBox4.Text + "," + textBox5.Text + ")",
@@ -76,7 +76,7 @@ namespace LabFinal
                 else
                 {
                     conn.Open();
-                    // Corrected UPDATE statement to match the database schema.
+                   
                     SqlDataAdapter sda = new SqlDataAdapter(
                         "UPDATE productos SET nombre_producto='" + textBox2.Text + "', tipo_producto='" + textBox3.Text + "', precio=" + textBox4.Text + ", stock=" + textBox5.Text + " WHERE id_producto='" + textBox8.Text + "'",
                         conn);
@@ -106,8 +106,8 @@ namespace LabFinal
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    // Assign values to the correct text boxes for display and update.
-                    textBox8.Text = reader[0].ToString(); // Assuming textBox8 is used for the ID to update.
+                  
+                    textBox8.Text = reader[0].ToString(); 
                     textBox2.Text = reader[1].ToString();
                     textBox3.Text = reader[2].ToString();
                     textBox4.Text = reader[3].ToString();
@@ -123,7 +123,7 @@ namespace LabFinal
             }
             finally
             {
-                //Cierro la conexion
+                
                 conn.Close();
             }
             textBox6.Text = "";
@@ -148,7 +148,7 @@ namespace LabFinal
             }
             finally
             {
-                // cierro la conexion
+               
                 conn.Close();
             }
         }
