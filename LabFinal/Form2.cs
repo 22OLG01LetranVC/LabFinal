@@ -12,8 +12,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LabFinal
 {
-    public partial class Form2: Form
+    public partial class Form2 : Form
     {
+        // Change the connection string to use the correct server instance and database.
         SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-5V7J3DL\SQLEXPRESS;Initial Catalog=pinturas_recubrimientos_db;Integrated Security=true");
 
         public Form2()
@@ -23,7 +24,7 @@ namespace LabFinal
 
         private void obtenerregistros()
         {
-            // La consulta a la tabla 'productos' se mantiene igual
+            // Change the connection string to use the correct server instance and database.
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM productos", "server=DESKTOP-5V7J3DL\\SQLEXPRESS; database = pinturas_recubrimientos_db; Integrated Security=true");
             DataSet ds = new DataSet();
             da.Fill(ds, "nombre");
@@ -46,10 +47,10 @@ namespace LabFinal
                 else
                 {
                     conn.Open();
-                    // Se cambió la consulta para que coincida con la nueva estructura de la tabla 'productos'
+                    // Corrected INSERT statement to match the database schema.
                     SqlDataAdapter sda = new SqlDataAdapter(
-                        "INSERT INTO productos(nombre_producto, tipo_producto, color, acabado) VALUES ('"
-                        + textBox2.Text + "','" + textBox3.Text + "','" + textBox4.Text + "','" + textBox5.Text + "')",
+                        "INSERT INTO productos(nombre_producto, tipo_producto, precio, stock) VALUES ('"
+                        + textBox2.Text + "','" + textBox3.Text + "'," + textBox4.Text + "," + textBox5.Text + ")",
                         conn);
                     sda.SelectCommand.ExecuteNonQuery();
                     conn.Close();
@@ -75,9 +76,9 @@ namespace LabFinal
                 else
                 {
                     conn.Open();
-                    // Se cambió la consulta para que coincida con la nueva estructura de la tabla 'productos'
+                    // Corrected UPDATE statement to match the database schema.
                     SqlDataAdapter sda = new SqlDataAdapter(
-                        "UPDATE productos SET nombre_producto='" + textBox2.Text + "', tipo_producto='" + textBox3.Text + "', color='" + textBox4.Text + "', acabado='" + textBox5.Text + "' WHERE id_producto='" + textBox8.Text + "'",
+                        "UPDATE productos SET nombre_producto='" + textBox2.Text + "', tipo_producto='" + textBox3.Text + "', precio=" + textBox4.Text + ", stock=" + textBox5.Text + " WHERE id_producto='" + textBox8.Text + "'",
                         conn);
                     sda.SelectCommand.ExecuteNonQuery();
                     conn.Close();
@@ -105,13 +106,13 @@ namespace LabFinal
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    textBox6.Text = reader[0].ToString();
+                    // Assign values to the correct text boxes for display and update.
+                    textBox8.Text = reader[0].ToString(); // Assuming textBox8 is used for the ID to update.
                     textBox2.Text = reader[1].ToString();
                     textBox3.Text = reader[2].ToString();
                     textBox4.Text = reader[3].ToString();
                     textBox5.Text = reader[4].ToString();
-                    // Las siguientes líneas se comentan porque la nueva tabla no tiene las mismas columnas
-                    // textBox1.Text = reader[5].ToString();
+                    textBox1.Text = reader[5].ToString();
                 }
                 else
                     MessageBox.Show("Ningun registro encontrado con el id ingresado !");
@@ -122,6 +123,7 @@ namespace LabFinal
             }
             finally
             {
+                //Cierro la conexion
                 conn.Close();
             }
             textBox6.Text = "";
@@ -146,13 +148,14 @@ namespace LabFinal
             }
             finally
             {
+                // cierro la conexion
                 conn.Close();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Se cambió la cadena de conexión
+           
             SqlConnection conexion = new SqlConnection(@"Data Source=DESKTOP-5V7J3DL\SQLEXPRESS;Initial Catalog=pinturas_recubrimientos_db;Integrated Security=true");
             conexion.Open();
             MessageBox.Show("Se abrio la conexion con el servidor SQL Server y se selecciono la base de datos");
@@ -162,13 +165,12 @@ namespace LabFinal
 
         private void button5_Click(object sender, EventArgs e)
         {
-            // Reporte1 rm1 = new Reporte1();
-            // rm1.ShowDialog();
+            Reporte1 rm1 = new Reporte1();
+            rm1.ShowDialog();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
         }
     }
-
 }
